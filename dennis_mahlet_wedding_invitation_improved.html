@@ -1,0 +1,784 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Montserrat:wght@300;400;500;600&display=swap');
+
+  :root {
+    --burg: #6B1E3A;
+    --burg-light: #8B2A4E;
+    --burg-pale: #F5E8EE;
+    --blue: #4A7FA5;
+    --blue-light: #6A9FBF;
+    --blue-pale: #E8F2F8;
+    --gold: #C8A96E;
+    --gold-light: #E8D4A0;
+    --cream: #FDFAF5;
+    --white: #FFFFFF;
+    --text-dark: #2C1A24;
+    --text-mid: #5A3A48;
+    --text-soft: #8A6A78;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+    background: var(--cream);
+  }
+
+  body {
+    overflow-x: hidden;
+  }
+
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .inv-wrap {
+    font-family: 'Montserrat', sans-serif;
+    background: var(--cream);
+    width: 100%;
+    min-height: 100vh;
+    margin: 0;
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  .serif { font-family: 'Cormorant Garamond', serif; }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(160deg, var(--burg) 0%, #3D0E22 60%, #1A1028 100%);
+    min-height: 520px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 3rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 30%, rgba(200,169,110,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-floral {
+    position: absolute;
+    opacity: 0.12;
+    font-size: 120px;
+    user-select: none;
+  }
+  .hero-floral.top { top: -20px; right: -20px; transform: rotate(20deg); }
+  .hero-floral.bot { bottom: -20px; left: -20px; transform: rotate(200deg); }
+
+  .hero-tag {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 4px;
+    color: var(--gold-light);
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+
+  .hero-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 52px;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 0.5rem;
+  }
+
+  .hero-amp {
+    display: block;
+    font-size: 38px;
+    font-style: italic;
+    color: var(--gold);
+    margin: 0.2rem 0;
+  }
+
+  .hero-date {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--gold-light);
+    margin: 1.2rem 0 0.5rem;
+  }
+
+  .hero-divider {
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin: 1rem auto;
+  }
+
+  .hero-msg {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+    max-width: 280px;
+  }
+
+  /* NAV DOTS */
+  .scroll-nav {
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+    padding: 1rem 0;
+    background: var(--burg);
+  }
+  .nav-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.3);
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .nav-dot.active, .nav-dot:hover { background: var(--gold); transform: scale(1.3); }
+
+  /* COUNTDOWN */
+  .section { padding: 2rem 1.5rem; }
+  .section-label {
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 0.4rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--burg);
+    text-align: center;
+    margin-bottom: 1.5rem;
+    line-height: 1.3;
+  }
+
+  .countdown-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+    margin: 0 auto;
+    max-width: 320px;
+  }
+  .cd-box {
+    background: var(--burg);
+    border-radius: 12px;
+    padding: 1rem 0.5rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .cd-box::after {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(200,169,110,0.15) 0%, transparent 60%);
+  }
+  .cd-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--white);
+    display: block;
+    line-height: 1;
+  }
+  .cd-label {
+    font-size: 9px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--gold-light);
+    margin-top: 4px;
+    display: block;
+  }
+
+  /* CARDS */
+  .ceremony-card {
+    background: var(--white);
+    border-radius: 16px;
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    border: 1px solid var(--gold-light);
+    box-shadow: 0 2px 16px rgba(107,30,58,0.08);
+  }
+  .card-header {
+    padding: 1.2rem 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .card-header.church { background: linear-gradient(120deg, var(--burg) 0%, var(--burg-light) 100%); }
+  .card-header.mels { background: linear-gradient(120deg, var(--blue) 0%, var(--blue-light) 100%); }
+  .card-icon {
+    width: 44px; height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .card-header-text h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--white);
+  }
+  .card-header-text p {
+    font-size: 11px;
+    color: rgba(255,255,255,0.75);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-top: 2px;
+  }
+  .card-body { padding: 1.2rem 1.5rem; }
+  .detail-row {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 10px;
+    font-size: 13px;
+    color: var(--text-mid);
+  }
+  .detail-row i { font-size: 16px; color: var(--gold); margin-top: 1px; flex-shrink: 0; }
+  .detail-row strong { font-weight: 600; color: var(--text-dark); }
+  .card-note {
+    margin-top: 1rem;
+    padding: 0.8rem 1rem;
+    border-radius: 8px;
+    font-size: 12px;
+    font-style: italic;
+    line-height: 1.6;
+  }
+  .card-note.church { background: var(--burg-pale); color: var(--burg); border-left: 3px solid var(--burg); }
+  .card-note.mels { background: var(--blue-pale); color: var(--blue); border-left: 3px solid var(--blue); }
+  .map-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1.5px solid var(--gold);
+    background: transparent;
+    color: var(--burg);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: all 0.2s;
+    text-transform: uppercase;
+  }
+  .map-btn:hover { background: var(--gold); color: var(--white); }
+  .map-btn i { font-size: 15px; }
+
+  /* LOVE STORY */
+  .love-bg { background: linear-gradient(170deg, var(--burg-pale) 0%, var(--blue-pale) 100%); }
+  .timeline {
+    position: relative;
+    padding-left: 2rem;
+    margin-top: 1rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 10px; top: 0; bottom: 0;
+    width: 1.5px;
+    background: linear-gradient(to bottom, var(--burg), var(--blue));
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding-left: 0.8rem;
+  }
+  .tl-dot {
+    position: absolute;
+    left: -1.55rem;
+    top: 4px;
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--white);
+    box-shadow: 0 0 0 2px var(--gold);
+  }
+  .tl-year {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .tl-text {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    color: var(--text-dark);
+    line-height: 1.5;
+    margin-top: 2px;
+  }
+
+  /* GALLERY */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    margin-top: 1rem;
+  }
+  .gallery-item {
+    border-radius: 12px;
+    overflow: hidden;
+    background: linear-gradient(135deg, var(--burg-pale), var(--blue-pale));
+    aspect-ratio: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    border: 1px solid var(--gold-light);
+  }
+  .gallery-item.tall { grid-row: span 2; aspect-ratio: auto; min-height: 200px; }
+  .gallery-placeholder {
+    text-align: center;
+    color: var(--text-soft);
+  }
+  .gallery-placeholder i { font-size: 32px; display: block; margin-bottom: 6px; color: var(--gold); }
+  .gallery-placeholder span { font-size: 11px; }
+
+  /* INFO CARDS */
+  .info-card {
+    background: var(--white);
+    border-radius: 14px;
+    padding: 1.2rem;
+    border: 1px solid var(--gold-light);
+    margin-bottom: 1rem;
+    box-shadow: 0 2px 14px rgba(107,30,58,0.06);
+  }
+  .info-header {
+    display: flex; align-items: center; gap: 8px;
+    margin-bottom: 0.6rem;
+  }
+  .info-header i { font-size: 18px; color: var(--blue); }
+  .info-header h4 { font-size: 14px; font-weight: 600; color: var(--text-dark); }
+  .info-body { font-size: 12px; color: var(--text-soft); line-height: 1.7; }
+
+  /* CONTACTS */
+  .contact-chip {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 1rem 1.2rem;
+    background: var(--white);
+    border-radius: 12px;
+    border: 1px solid var(--gold-light);
+    margin-bottom: 0.8rem;
+    box-shadow: 0 1px 6px rgba(107,30,58,0.06);
+  }
+  .contact-avatar {
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--white);
+    flex-shrink: 0;
+  }
+  .contact-avatar.burg { background: var(--burg); }
+  .contact-avatar.blue { background: var(--blue); }
+  .contact-name { font-size: 13px; font-weight: 600; color: var(--text-dark); }
+  .contact-role { font-size: 11px; color: var(--text-soft); margin-top: 1px; }
+  .contact-tel { font-size: 12px; color: var(--blue); font-weight: 500; margin-top: 3px; }
+
+  /* CLOSING */
+  .closing {
+    background: linear-gradient(160deg, var(--burg) 0%, #3D0E22 100%);
+    padding: 3rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .closing::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse at 50% 80%, rgba(200,169,110,0.12) 0%, transparent 70%);
+  }
+  .closing-ornament {
+    font-size: 36px;
+    margin-bottom: 1rem;
+    display: block;
+  }
+  .closing-blessing {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 400;
+    font-style: italic;
+    color: var(--white);
+    line-height: 1.7;
+    margin-bottom: 1.5rem;
+  }
+  .closing-verse {
+    font-size: 12px;
+    color: var(--gold-light);
+    letter-spacing: 1px;
+    font-style: italic;
+  }
+  .closing-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    color: var(--gold);
+    margin-top: 1.5rem;
+    font-weight: 300;
+  }
+  .petal {
+    position: absolute;
+    opacity: 0.08;
+    font-size: 80px;
+    pointer-events: none;
+    user-select: none;
+  }
+  .petal.p1 { top: 10px; left: -15px; transform: rotate(-30deg); }
+  .petal.p2 { bottom: 10px; right: -15px; transform: rotate(150deg); }
+
+  /* SECTION DIVIDER */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 1.5rem;
+    margin: 0.5rem 0;
+  }
+  .divider-line { flex: 1; height: 1px; background: linear-gradient(90deg, transparent, var(--gold-light)); }
+  .divider-line.rev { background: linear-gradient(90deg, var(--gold-light), transparent); }
+  .divider-ornament { font-size: 16px; color: var(--gold); }
+
+  .check-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 12px;
+    color: var(--text-mid);
+    padding: 8px 10px;
+    background: var(--white);
+    border-radius: 8px;
+    border: 1px solid var(--gold-light);
+  }
+  .check-item i { color: var(--burg); font-size: 14px; flex-shrink: 0; }
+</style>
+
+<h2 class="sr-only">Dennis and Mahlet Wedding Invitation — September 2026, Addis Ababa</h2>
+
+<div class="inv-wrap">
+
+  <!-- HERO -->
+  <div class="hero" id="top">
+    <span class="hero-floral top" aria-hidden="true">🌸</span>
+    <span class="hero-floral bot" aria-hidden="true">🌸</span>
+    <p class="hero-tag">You are warmly invited to celebrate</p>
+    <div class="hero-names serif">
+      Dennis
+      <span class="hero-amp">&</span>
+      Mahlet
+    </div>
+    <div class="hero-date serif">17 September 2026 · Addis Ababa</div>
+    <div class="hero-divider"></div>
+    <p class="hero-msg serif">"Two hearts, one journey — woven together by love and by grace."</p>
+  </div>
+
+  <!-- NAV -->
+  <div class="scroll-nav" id="navDots">
+    <div class="nav-dot active" onclick="scrollTo(0,0)" title="Top"></div>
+    <div class="nav-dot" onclick="document.getElementById('s-countdown').scrollIntoView({behavior:'smooth'})" title="Countdown"></div>
+    <div class="nav-dot" onclick="document.getElementById('s-church').scrollIntoView({behavior:'smooth'})" title="Church"></div>
+    <div class="nav-dot" onclick="document.getElementById('s-mels').scrollIntoView({behavior:'smooth'})" title="Mels"></div>
+    <div class="nav-dot" onclick="document.getElementById('s-story').scrollIntoView({behavior:'smooth'})" title="Story"></div>
+    <div class="nav-dot" onclick="document.getElementById('s-notes').scrollIntoView({behavior:'smooth'})" title="Guest notes"></div>
+  </div>
+
+  <!-- COUNTDOWN -->
+  <div class="section" id="s-countdown">
+    <p class="section-label">Counting down to forever</p>
+    <h2 class="section-title serif">The big day arrives in</h2>
+    <div class="countdown-grid">
+      <div class="cd-box"><span class="cd-num serif" id="cd-days">--</span><span class="cd-label">Days</span></div>
+      <div class="cd-box"><span class="cd-num serif" id="cd-hours">--</span><span class="cd-label">Hours</span></div>
+      <div class="cd-box"><span class="cd-num serif" id="cd-mins">--</span><span class="cd-label">Mins</span></div>
+      <div class="cd-box"><span class="cd-num serif" id="cd-secs">--</span><span class="cd-label">Secs</span></div>
+    </div>
+  </div>
+
+  <div class="divider" aria-hidden="true">
+    <div class="divider-line"></div>
+    <span class="divider-ornament">✦</span>
+    <div class="divider-line rev"></div>
+  </div>
+
+  <!-- CHURCH WEDDING -->
+  <div class="section" id="s-church">
+    <p class="section-label">First ceremony</p>
+    <h2 class="section-title serif">Church Wedding</h2>
+    <div class="ceremony-card">
+      <div class="card-header church">
+        <div class="card-icon" aria-hidden="true">⛪</div>
+        <div class="card-header-text">
+          <h3>Holy Matrimony</h3>
+          <p>Orthodox Christian Ceremony</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="detail-row"><i class="ti ti-calendar" aria-hidden="true"></i><div><strong>Date</strong><br>Thursday, 17 September 2026</div></div>
+        <div class="detail-row"><i class="ti ti-clock" aria-hidden="true"></i><div><strong>Time</strong><br>8:00 AM — Preparations &amp; photography<br><span style="color:var(--burg);font-weight:600">10:00 AM</span> — Church service begins<br>2:00 PM — Reception (venue TBC)</div></div>
+        <div class="detail-row"><i class="ti ti-map-pin" aria-hidden="true"></i><div><strong>Venue</strong><br>Church, Addis Ababa (TBC)</div></div>
+        <div class="detail-row"><i class="ti ti-hanger" aria-hidden="true"></i><div><strong>Dress Code</strong><br>Formal — Suits &amp; gowns preferred. Ladies may wear <em>habesha kemis</em> or elegant traditional attire.</div></div>
+        <div class="card-note church">
+          <i class="ti ti-sparkles" aria-hidden="true"></i> A sacred Orthodox Christian ceremony uniting Dennis and Mahlet with vows, rings, and scripture. Guests are invited to witness this holy covenant before celebration.
+        </div>
+        <button class="map-btn" onclick="alert('Venue to be confirmed — we\'ll send the map soon!')">
+          <i class="ti ti-map-2" aria-hidden="true"></i> View on maps
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider" aria-hidden="true">
+    <div class="divider-line"></div>
+    <span class="divider-ornament">✦</span>
+    <div class="divider-line rev"></div>
+  </div>
+
+  <!-- MELS CEREMONY -->
+  <div class="section" id="s-mels">
+    <p class="section-label">Second ceremony</p>
+    <h2 class="section-title serif">Mels Ceremony</h2>
+    <div class="ceremony-card">
+      <div class="card-header mels">
+        <div class="card-icon" aria-hidden="true">🎊</div>
+        <div class="card-header-text">
+          <h3>The Homecoming</h3>
+          <p>Ethiopian Post-Wedding Celebration</p>
+        </div>
+      </div>
+      <div class="card-body">
+        <div class="detail-row"><i class="ti ti-calendar" aria-hidden="true"></i><div><strong>Date</strong><br>Sunday, 20 September 2026</div></div>
+        <div class="detail-row"><i class="ti ti-clock" aria-hidden="true"></i><div><strong>Time</strong><br><span style="color:var(--blue);font-weight:600">Morning</span> — Elder blessings &amp; prayers<br>All day — Grand feast &amp; celebration<br>Evening — Farewell &amp; group photos</div></div>
+        <div class="detail-row"><i class="ti ti-map-pin" aria-hidden="true"></i><div><strong>Venue</strong><br>Bride's family home, Addis Ababa</div></div>
+        <div class="detail-row"><i class="ti ti-hanger" aria-hidden="true"></i><div><strong>Dress Code</strong><br>Smart-casual or traditional Ethiopian attire welcomed and celebrated.</div></div>
+        <div class="card-note mels">
+          <i class="ti ti-sparkles" aria-hidden="true"></i> <em>Mels</em> is a beloved Ethiopian tradition — the joyful homecoming where family and friends gather to bless the couple with prayers, feasting, traditional music, and song. Come ready to dance.
+        </div>
+        <button class="map-btn" style="border-color:var(--blue);color:var(--blue)" onclick="alert('Venue details will be shared closer to the date!')">
+          <i class="ti ti-map-2" aria-hidden="true"></i> View on maps
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider" aria-hidden="true">
+    <div class="divider-line"></div>
+    <span class="divider-ornament">✦</span>
+    <div class="divider-line rev"></div>
+  </div>
+
+  <!-- LOVE STORY -->
+  <div class="section love-bg" id="s-story">
+    <p class="section-label">Our journey together</p>
+    <h2 class="section-title serif">A Love Story</h2>
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <p class="tl-year">The beginning</p>
+        <p class="tl-text serif">Dennis and Mahlet's paths crossed in the most unexpected and beautiful way — a meeting neither could have planned but both were destined for.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <p class="tl-year">Growing closer</p>
+        <p class="tl-text serif">Through shared laughter, deep conversations, and quiet moments, two souls discovered they were better together than apart.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <p class="tl-year">He asked, she said yes</p>
+        <p class="tl-text serif">A heartfelt proposal sealed with a promise — to walk through life side by side, through all seasons.</p>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <p class="tl-year">September 2026</p>
+        <p class="tl-text serif">Before family and friends — in Addis Ababa, the city of flowers — they become one. Forever.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider" aria-hidden="true">
+    <div class="divider-line"></div>
+    <span class="divider-ornament">✦</span>
+    <div class="divider-line rev"></div>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="section" id="s-gallery">
+    <p class="section-label">Memories in the making</p>
+    <h2 class="section-title serif">Photo Gallery</h2>
+    <div class="gallery-grid">
+      <div class="gallery-item tall">
+        <div class="gallery-placeholder">
+          <i class="ti ti-camera" aria-hidden="true"></i>
+          <span>Couple photo<br>coming soon</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <i class="ti ti-heart" aria-hidden="true"></i>
+          <span>Engagement</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <i class="ti ti-users" aria-hidden="true"></i>
+          <span>Family</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <i class="ti ti-camera-selfie" aria-hidden="true"></i>
+          <span>Pre-wedding</span>
+        </div>
+      </div>
+      <div class="gallery-item">
+        <div class="gallery-placeholder">
+          <i class="ti ti-photo" aria-hidden="true"></i>
+          <span>More soon</span>
+        </div>
+      </div>
+    </div>
+    <p style="font-size:11px;color:var(--text-soft);text-align:center;margin-top:1rem;font-style:italic">Photos will be added as we get closer to the big day</p>
+  </div>
+
+  <div class="divider" aria-hidden="true">
+    <div class="divider-line"></div>
+    <span class="divider-ornament">✦</span>
+    <div class="divider-line rev"></div>
+  </div>
+
+  <!-- GUEST NOTES -->
+  <div class="section" id="s-notes">
+    <p class="section-label">A gentle note</p>
+    <h2 class="section-title serif">For Our Guests</h2>
+
+    <div class="info-card">
+      <div class="info-header">
+        <i class="ti ti-heart" aria-hidden="true"></i>
+        <h4>Your presence matters most</h4>
+      </div>
+      <p class="info-body">We are grateful to celebrate this moment with the people who have loved, prayed for, encouraged, and walked with us. Please come ready to share in faith, family, culture, joy, and thanksgiving.</p>
+    </div>
+
+    <div class="info-card">
+      <div class="info-header">
+        <i class="ti ti-calendar-check" aria-hidden="true"></i>
+        <h4>Ceremony details</h4>
+      </div>
+      <p class="info-body">Final venue directions and any ceremony updates will be shared through the wedding coordinator and family contacts closer to the celebration.</p>
+    </div>
+  </div>
+
+  <div class="divider" aria-hidden="true">
+    <div class="divider-line"></div>
+    <span class="divider-ornament">✦</span>
+    <div class="divider-line rev"></div>
+  </div>
+
+  <!-- CONTACTS -->
+  <div class="section" id="s-contact">
+    <p class="section-label">Any questions?</p>
+    <h2 class="section-title serif">Contact the Wedding Team</h2>
+
+    <div class="contact-chip">
+      <div class="contact-avatar burg">DM</div>
+      <div>
+        <p class="contact-name">Wedding Coordinator</p>
+        <p class="contact-role">Ceremony planning &amp; logistics</p>
+        <p class="contact-tel">Details to be confirmed</p>
+      </div>
+    </div>
+
+    <div class="contact-chip">
+      <div class="contact-avatar blue">BF</div>
+      <div>
+        <p class="contact-name">Bride's Family</p>
+        <p class="contact-role">Mels ceremony &amp; local queries</p>
+        <p class="contact-tel">Contact via coordinator</p>
+      </div>
+    </div>
+
+    <div class="contact-chip">
+      <div class="contact-avatar" style="background:var(--gold)">GF</div>
+      <div>
+        <p class="contact-name">Groom's Family</p>
+        <p class="contact-role">Church ceremony &amp; family coordination</p>
+        <p class="contact-tel">Contact via coordinator</p>
+      </div>
+    </div>
+
+    <p style="font-size:11px;color:var(--text-soft);text-align:center;margin-top:1rem;font-style:italic">Contact details will be shared with confirmed guests</p>
+  </div>
+
+  <!-- CLOSING -->
+  <div class="closing">
+    <span class="petal p1" aria-hidden="true">🌸</span>
+    <span class="petal p2" aria-hidden="true">🌸</span>
+    <span class="closing-ornament" aria-hidden="true">✦</span>
+    <p class="closing-blessing serif">
+      "May your home be a place of joy,<br>
+      your love a light that never fades,<br>
+      and your journey together<br>
+      a blessing to all who know you."
+    </p>
+    <p class="closing-verse">— Psalm 128:1 · "Blessed are all who fear the Lord."</p>
+    <p class="closing-names serif">Dennis &amp; Mahlet</p>
+    <div class="hero-divider" style="margin-top:1.5rem"></div>
+    <p style="font-size:11px;color:rgba(255,255,255,0.4);margin-top:1rem;letter-spacing:2px;text-transform:uppercase">17 September 2026 · Addis Ababa, Ethiopia</p>
+  </div>
+
+</div>
+
+<script>
+function updateCountdown() {
+  var target = new Date('2026-09-17T10:00:00+03:00');
+  var now = new Date();
+  var diff = target - now;
+  if (diff <= 0) {
+    ['cd-days','cd-hours','cd-mins','cd-secs'].forEach(function(id) {
+      document.getElementById(id).textContent = '0';
+    });
+    return;
+  }
+  var days = Math.floor(diff / 86400000);
+  var hours = Math.floor((diff % 86400000) / 3600000);
+  var mins = Math.floor((diff % 3600000) / 60000);
+  var secs = Math.floor((diff % 60000) / 1000);
+  document.getElementById('cd-days').textContent = days;
+  document.getElementById('cd-hours').textContent = hours;
+  document.getElementById('cd-mins').textContent = String(mins).padStart(2,'0');
+  document.getElementById('cd-secs').textContent = String(secs).padStart(2,'0');
+}
+updateCountdown();
+setInterval(updateCountdown, 1000);
+</script>
